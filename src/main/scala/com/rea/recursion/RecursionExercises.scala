@@ -2,13 +2,14 @@ package com.rea.recursion
 
 import scala.annotation.tailrec
 
-
 // Taken from http://tmorris.net/posts/scala-exercises-for-beginners/index.html
 
 /**
  * Ok here are the rules.
  *
- * You can't use any of the standard list functions, like map, filter, flatMap, append etc.
+ * You can't use any of the standard list functions, like `map`, `filter`, `flatMap`, `append`, `:::`, `:+`, etc.
+ * 
+ * But you can always use `::` to construct a new list by prepending an element to another list.
  *
  * You CAN and are encouraged to use the solutions from the exercises below to solve the harder
  * ones towards the end.
@@ -22,13 +23,14 @@ import scala.annotation.tailrec
  * See if you can make your solution tail recursive, where possible.
  *
  */
-object RecursionExercises1 {
+
+object RecursionExercises {
 
   def plusOne(n: Int) = n + 1
 
   def minusOne(n: Int) = n - 1
 
-  // Add two positive Integers together.  You are only allowed to use plusOne and minusOne above
+  // Add two non-negative Integers together.  You are only allowed to use plusOne and minusOne above
   @tailrec
   def add(a: Int, b: Int): Int = if (a == 0) b else add(minusOne(a), plusOne(b))
 
@@ -117,5 +119,4 @@ object RecursionExercises1 {
 
     rev(Nil, x)
   }
-
 }
