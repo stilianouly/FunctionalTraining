@@ -32,15 +32,46 @@ package com.rea.typesafety
 
 case class Box[A](get: A) {
   //Make it a Functor*
-  def map[B](f: A => B): Box[B] = ???
+  def map[B](f: A => B): Box[B] = Box(f(get))
 
   //Make it an Applicative*
-  def ap[B](bf: Box[A => B]): Box[B] = ???
+  def ap[B](bf: Box[A => B]): Box[B] = Box(bf.get(get))
 
   //Make it a Monad*
-  def flatMap[B](f: A => Box[B]): Box[B] = ???
+  def flatMap[B](f: A => Box[B]): Box[B] = f(get)
+
+  def !:[B](f: A => B): Box[B] = map(f)
+  def *:[B](f: Box[A => B]): Box[B] = ap(f)
 }
 
 object Box {
   def join[A](box: Box[Box[A]]): Box[A] = ???
+}
+
+class Thing {
+
+  def add: Int => Int => Int = {
+    x => y => x+y
+  }
+
+  def triadd: Int => Int => Int => Int = {
+    x => y => z => x + y + z
+  }
+
+
+  val a = Box(1)
+
+  val b = Box(2)
+
+  val c = Box(3)
+
+  val fatFunction = Box(triadd)
+
+  val next1 = c.ap(fatFunction)
+
+  val next2 = b.ap(next1)
+
+  val result = a.ap(next2)
+
+  val r = ((triadd !: a) *: b) *: c
 }

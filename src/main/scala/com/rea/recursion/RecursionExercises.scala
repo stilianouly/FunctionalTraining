@@ -29,10 +29,22 @@ object RecursionExercises {
   def minusOne(n: Int) = n - 1
 
   // Add two non-negative Integers together.  You are only allowed to use plusOne and minusOne above
-  def add(a: Int, b: Int): Int = ???
+  def add(a: Int, b: Int): Int = {
+    b match {
+      case 0 => a
+      case _ => add(plusOne(a), minusOne(b))
+    }
+  }
 
   // You are not permitted to use any list functions such as map, flatMap, ++, flatten etc
-  def sum(l: List[Int]): Int = ???
+  // (1 :: (2 :: (Nil)))
+  def sum(l: List[Int]): Int = {
+    l match {
+      case Nil => 0
+      case (h::t) => h + sum(t)
+    }
+  }
+  //  1 + (2 + ( 0 )))
 
   //Again no list functions are permitted for the following
   def length[A](x: List[A]): Int = ???

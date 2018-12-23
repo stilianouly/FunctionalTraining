@@ -6,7 +6,6 @@ import com.rea.higherorder.ComposingExercises._
 class ComposingExercisesSpec extends Specification {
 
   "ComposingExercises" should {
-
     "addTwoMinusThree" in {
       addTwoMinusThree(6) === 5
     }
